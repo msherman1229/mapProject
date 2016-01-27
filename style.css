@@ -3,7 +3,15 @@ background-color:"#00008B";
 }
 #map-div {
 display: flex; 
-justify-content: center;  
+justify-content: center; 
+position: relative; 
+}
+#prompt-div {
+position: absolute;
+width: 100px;
+height: 100px;
+border: solid;
+background: white;
 }
 #main-head {
 color: white;

@@ -12,9 +12,11 @@
 <button id="start-button" type="button">Click to Start</button>
 </div>
 <div id="map-div">
+<div id="prompt-div"></div>
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
 </div>
 <script>
+$("#prompt-div").hide();
 $("#world-map").on("click", function(event) {
 	console.log("we hear you");
 	console.log(event.pageY + "px");
@@ -25,6 +27,10 @@ $("#world-map").on("click", function(event) {
 	var lat = convertToLat(event.pageX - offset.left);
 	var longitude = convertToLong(event.pageY - offset.top);
 	getLocation(lat,longitude);
+})
+$("#start-button").on("click", function() {
+	console.log("You clicked the start button");
+	$("#prompt-div").show(); 
 })
 function convertToLat(x)
 {
@@ -72,31 +78,6 @@ function convertToLong(y)
 		return -toReturn;
 	}
 }
-/*function getLocation(x,y)
-{
-	geocoder = new google.maps.Geocoder;
-	var location1 = {lat: parseFloat(y), lng: parseFloat(x)};
-	geocoder.geocode({'location':location1}, function(results) {
-		console.log(results[1].formatted_address);
-		console.log(results[4].formatted_address);
-	});
-	//Probably want to add in some fail cases
-}*/
-/*function getLocation(x,y) 
-{
-	var myUrl = "https://montanaflynn-geocoder.p.mashape.com/reverse?latitude=" + y + "&longitude=" + x;
-	$.ajax({
-		url: myUrl,
-		type: 'GET', 
-		datatype: 'json',
-		success: function(data) {
-			alert(JSON.stringify(data));},
-		error: function(err) {alert(err);},
-		beforeSend: function(xhr) {
-		xhr.setRequestHeader("X-Mashape-Authorization", "xsV9GnCpcxmshOYb9GvA4nfGH2wzp1pPuYzjsnqZqFofrEKy7Z");
-		}
-	});
-}*/
 function getLocation(x,y)
 {
 	var myUrl = "http://api.opencagedata.com/geocode/v1/json?q=" + y +",+" + x + "&key=7e94b745a749cb44413754445f608f4a";
