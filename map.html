@@ -3,10 +3,12 @@
 <head>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<div id="map-div">
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
-
+</div>
 <script>
 $("#world-map").on("click", function(event) {
 	console.log("we hear you");
@@ -14,8 +16,9 @@ $("#world-map").on("click", function(event) {
 	console.log(event.pageX + "px");
 	console.log(convertToLat(event.pageX));
 	console.log(convertToLong(event.pageY));
-	var lat = convertToLat(event.pageX);
-	var longitude = convertToLong(event.pageY);
+	var offset = $(this).offset();
+	var lat = convertToLat(event.pageX - offset.left);
+	var longitude = convertToLong(event.pageY - offset.top);
 	getLocation(lat,longitude);
 })
 function convertToLat(x)
@@ -42,7 +45,7 @@ function convertToLat(x)
 	}
 }
 function convertToLong(y)
-{
+{ 
 	if (y < 30)
 	{
 		return -1;
@@ -97,6 +100,7 @@ function getLocation(x,y)
 		dataType: "json",
 		success: function(parsed_json) {
 			console.log(parsed_json.results[0].components.country);
+			alert(parsed_json.results[0].components.country);
 		},
 		fail: function(error) {
 			console.log(error);
