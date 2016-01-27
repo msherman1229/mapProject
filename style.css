@@ -31,4 +31,11 @@ margin-bottom: 20px;
 }
 #world-map {
 box-shadow: 5px 5px 50px black;
+margin-bottom: 30px;
 } 
+#world-pic {
+width: 80px;
+}
+#pic-div {
+text-align: center; 
+}
