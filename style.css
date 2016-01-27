@@ -1,5 +1,26 @@
+body {
+background-color:"#00008B";
+}
 #map-div {
 display: flex; 
-justify-content: center; 
-margin-top: 100px; 
+justify-content: center;  
 }
+#main-head {
+color: white;
+text-align: center;
+font-family: "Helvetica Neue";
+}
+#instructions {
+color: white;
+text-align: center; 
+font-family: "Helvetica Neue";
+}
+#button-div {
+text-align: center;
+}
+#start-button {
+margin-bottom: 20px;
+}
+#world-map {
+box-shadow: 5px 5px 50px black;
+} 
