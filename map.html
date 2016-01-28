@@ -22,6 +22,7 @@
 </div>
 <script>
 $("#prompt-div").hide();
+function clickMap() {
 $("#world-map").on("click", function(event) {
 	console.log("we hear you");
 	console.log(event.pageY + "px");
@@ -33,9 +34,38 @@ $("#world-map").on("click", function(event) {
 	var longitude = convertToLong(event.pageY - offset.top);
 	getLocation(lat,longitude);
 })
+}
+function mainGame() {
+	alert("You have started the game");
+	var wrongCounter = 0; 
+	var roundCounter = 0; 
+	var right = true; 
+	while ((wrongCounter < 3) && (roundCounter < 11))
+	{
+		right = playRound(roundCounter);
+		if (right)
+		{
+			roundCounter++;;
+		}
+		else 
+		{
+			wrongCounter++;
+			roundCounter++;
+		}
+	}
+	if (wrongCounter == 3)
+	{
+		alert("You lost");
+	}
+}
+function playRound(round)
+{
+	return false; 
+}
 $("#start-button").on("click", function() {
 	console.log("You clicked the start button");
-	$("#prompt-div").show(); 
+	$("#prompt-div").show();
+	mainGame();
 })
 function convertToLat(x)
 {
