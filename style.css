@@ -28,6 +28,11 @@ text-align: center;
 }
 #start-button {
 margin-bottom: 20px;
+width: 96px;
+height: 30px;
+border-radius: 10px;
+background: white;
+font-family: "Helvetica Neue";
 }
 #world-map {
 box-shadow: 5px 5px 50px black;
