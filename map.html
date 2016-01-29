@@ -16,6 +16,7 @@
 <div id="button-div">
 <button id="start-button" type="button">Click to Start</button>
 </div>
+<div id="country-box"><h1 id="country-name"></h1></div>
 <div id="map-div">
 <div id="prompt-div"></div>
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
@@ -40,8 +41,7 @@ $("#world-map").on("click", function(event) {
 function mainGame() {
 	alert("You have started the game");
 	var roundCounter = 0; 
-	var right = true; 
-	var response;
+	$("#country-name").text(countryList[roundCounter]);
 	$("#world-map").on("click", function(event) {
         	console.log("we hear you");
         	console.log(event.pageY + "px");
@@ -61,6 +61,7 @@ function mainGame() {
 		{
 			alert("You win");
 		}
+		$("#country-name").text(countryList[roundCounter]);
 	})
 }
 function playRound(round)
