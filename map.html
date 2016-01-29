@@ -25,19 +25,6 @@
 var countryList = ["United States of America","Australia","Canada","Brazil","Spain","France","India","China","Saudi Arabia","Egypt"];
 var wrongCounter = 0; 
 $("#prompt-div").hide();
-/*function clickMap() {
-$("#world-map").on("click", function(event) {
-	console.log("we hear you");
-	console.log(event.pageY + "px");
-	console.log(event.pageX + "px");
-	console.log(convertToLat(event.pageX));
-	console.log(convertToLong(event.pageY));
-	var offset = $(this).offset();
-	var lat = convertToLat(event.pageX - offset.left);
-	var longitude = convertToLong(event.pageY - offset.top);
-	return getLocation(lat,longitude);
-})
-}*/
 function mainGame() {
 	alert("You have started the game");
 	var roundCounter = 0; 
@@ -54,30 +41,29 @@ function mainGame() {
         	getLocation(lat,longitude, roundCounter);
 		if (wrongCounter == 3)
 		{
-			alert("You lose");
+			lose();
 		}
 		roundCounter++;
 		if (roundCounter == 10)
 		{
-			alert("You win");
+			win();
 		}
 		$("#country-name").text(countryList[roundCounter]);
 	})
 }
-function playRound(round)
-{
-	alert("New round");
-	var response = clickMap();
-	setTimeout(function() {
-		alert("You selected" + response);
-		return false; 
-	}, 5000);  
-}
 $("#start-button").on("click", function() {
 	console.log("You clicked the start button");
-	$("#prompt-div").show();
+	//$("#prompt-div").show();
 	mainGame();
 })
+function lose()
+{
+	alert("Better luck next time");
+}
+function win()
+{
+	alert("Wow, you're like really smart");
+}
 function convertToLat(x)
 {
 	if (x <= 24)
