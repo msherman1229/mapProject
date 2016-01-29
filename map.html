@@ -22,12 +22,13 @@
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
 </div>
 <script>
-var countryList = ["United States of America","Australia","Canada","Brazil","Spain","France","India","China","Saudi Arabia","Egypt"];
-var wrongCounter = 0; 
+var countryList = ["United States of America","Australia","Canada","United States of America", "Australia", "Canada", "United States of America", "Australia", "Canada"];
+var wrongCounter = 0;
+var roundCounter = 0; 
 $("#prompt-div").hide();
 function mainGame() {
 	alert("You have started the game");
-	var roundCounter = 0; 
+	//var roundCounter = 0; 
 	$("#country-name").text(countryList[roundCounter]);
 	$("#world-map").on("click", function(event) {
         	console.log("we hear you");
@@ -39,10 +40,6 @@ function mainGame() {
         	var lat = convertToLat(event.pageX - offset.left);
         	var longitude = convertToLong(event.pageY - offset.top);
         	getLocation(lat,longitude, roundCounter);
-		if (wrongCounter == 3)
-		{
-			lose();
-		}
 		roundCounter++;
 		if (roundCounter == 10)
 		{
@@ -54,15 +51,19 @@ function mainGame() {
 $("#start-button").on("click", function() {
 	console.log("You clicked the start button");
 	//$("#prompt-div").show();
+	$("#country-box").append("<h1 id=\"country-name\"></h1>");
+	roundCounter = 0;
 	mainGame();
 })
 function lose()
 {
 	alert("Better luck next time");
+	$("#country-box").empty();
 }
 function win()
 {
 	alert("Wow, you're like really smart");
+	$("#country-box").empty();
 }
 function convertToLat(x)
 {
@@ -129,6 +130,10 @@ function getLocation(x,y, counter)
 			else 
 			{
 				wrongCounter++;
+				if (wrongCounter == 3)
+				{
+					lose();
+				}
 			}
 			return parsed_json.results[0].components.country;
 		},
