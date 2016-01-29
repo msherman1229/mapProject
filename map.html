@@ -21,8 +21,10 @@
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
 </div>
 <script>
+var countryList = ["United States of America","Australia","Canada","Brazil","Spain","France","India","China","Saudi Arabia","Egypt"];
+var wrongCounter = 0; 
 $("#prompt-div").hide();
-function clickMap() {
+/*function clickMap() {
 $("#world-map").on("click", function(event) {
 	console.log("we hear you");
 	console.log(event.pageY + "px");
@@ -32,35 +34,43 @@ $("#world-map").on("click", function(event) {
 	var offset = $(this).offset();
 	var lat = convertToLat(event.pageX - offset.left);
 	var longitude = convertToLong(event.pageY - offset.top);
-	getLocation(lat,longitude);
+	return getLocation(lat,longitude);
 })
-}
+}*/
 function mainGame() {
 	alert("You have started the game");
-	var wrongCounter = 0; 
 	var roundCounter = 0; 
 	var right = true; 
-	while ((wrongCounter < 3) && (roundCounter < 11))
-	{
-		right = playRound(roundCounter);
-		if (right)
+	var response;
+	$("#world-map").on("click", function(event) {
+        	console.log("we hear you");
+        	console.log(event.pageY + "px");
+        	console.log(event.pageX + "px");
+        	console.log(convertToLat(event.pageX));
+       		console.log(convertToLong(event.pageY));
+        	var offset = $(this).offset();
+        	var lat = convertToLat(event.pageX - offset.left);
+        	var longitude = convertToLong(event.pageY - offset.top);
+        	getLocation(lat,longitude, roundCounter);
+		if (wrongCounter == 3)
 		{
-			roundCounter++;;
+			alert("You lose");
 		}
-		else 
+		roundCounter++;
+		if (roundCounter == 10)
 		{
-			wrongCounter++;
-			roundCounter++;
+			alert("You win");
 		}
-	}
-	if (wrongCounter == 3)
-	{
-		alert("You lost");
-	}
+	})
 }
 function playRound(round)
 {
-	return false; 
+	alert("New round");
+	var response = clickMap();
+	setTimeout(function() {
+		alert("You selected" + response);
+		return false; 
+	}, 5000);  
 }
 $("#start-button").on("click", function() {
 	console.log("You clicked the start button");
@@ -113,7 +123,7 @@ function convertToLong(y)
 		return -toReturn;
 	}
 }
-function getLocation(x,y)
+function getLocation(x,y, counter)
 {
 	var myUrl = "http://api.opencagedata.com/geocode/v1/json?q=" + y +",+" + x + "&key=7e94b745a749cb44413754445f608f4a";
 	$.ajax({
@@ -121,7 +131,19 @@ function getLocation(x,y)
 		dataType: "json",
 		success: function(parsed_json) {
 			console.log(parsed_json.results[0].components.country);
-			alert(parsed_json.results[0].components.country);
+			//alert(parsed_json.results[0].components.country);
+			//answer = parsed_json.results[0].components.country;
+			var selection = parsed_json.results[0].components.country;
+			console.log(counter + ", the correct response was " + countryList[counter]); 
+			if (selection == countryList[counter])
+			{
+				console.log("you were right");
+			}
+			else 
+			{
+				wrongCounter++;
+			}
+			return parsed_json.results[0].components.country;
 		},
 		fail: function(error) {
 			console.log(error);
