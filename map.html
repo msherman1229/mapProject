@@ -17,6 +17,10 @@
 <button id="start-button" type="button">Click to Start</button>
 </div>
 <div id="country-box"><h1 id="country-name"></h1></div>
+<div id="overlay-div"></div>
+<div id="container">
+        <div id="popup"></div>
+</div>
 <div id="map-div">
 <div id="prompt-div"></div>
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
@@ -27,8 +31,7 @@ var wrongCounter = 0;
 var roundCounter = 0; 
 $("#prompt-div").hide();
 function mainGame() {
-	alert("You have started the game");
-	//var roundCounter = 0; 
+	alert("You have started the game"); 
 	$("#country-name").text(countryList[roundCounter]);
 	$("#world-map").on("click", function(event) {
         	console.log("we hear you");
@@ -41,10 +44,6 @@ function mainGame() {
         	var longitude = convertToLong(event.pageY - offset.top);
         	getLocation(lat,longitude, roundCounter);
 		roundCounter++;
-		if (roundCounter == 10)
-		{
-			win();
-		}
 		$("#country-name").text(countryList[roundCounter]);
 	})
 }
@@ -126,6 +125,19 @@ function getLocation(x,y, counter)
 			if (selection == countryList[counter])
 			{
 				console.log("you were right");
+				$("#overlay-div").show();
+				$("#container").show();
+				$("#popup").css("background","green")
+					.show()
+					.click(function() {
+						$("#popup").slideToggle();
+						$("#container").slideToggle();
+						$("#overlay-div").slideToggle();
+					});
+				if (roundCounter == countryList.length)
+				{
+					win();
+				}
 			}
 			else 
 			{
