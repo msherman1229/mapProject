@@ -45,6 +45,7 @@ function mainGame() {
         	getLocation(lat,longitude, roundCounter);
 		roundCounter++;
 		$("#country-name").text(countryList[roundCounter]);
+		$("#popup").off("click");
 	})
 }
 $("#start-button").on("click", function() {
@@ -130,10 +131,12 @@ function getLocation(x,y, counter)
 				$("#popup").css("background","green")
 					.show()
 					.click(function() {
+						console.log("We are stuck in here");
 						$("#popup").slideToggle();
 						$("#container").slideToggle();
 						$("#overlay-div").slideToggle();
 					});
+				//$("#country-name").text(countryList[roundCounter]);*/
 				if (roundCounter == countryList.length)
 				{
 					win();
@@ -141,6 +144,16 @@ function getLocation(x,y, counter)
 			}
 			else 
 			{
+				/*$("#overlay-div").show();
+                                $("#container").show();
+                                $("#popup").css("background","red")
+                                        .show()
+                                        .click(function() {
+                                                $("#popup").slideToggle();
+                                                $("#container").slideToggle();
+                                                $("#overlay-div").slideToggle();
+                                        });
+				//$("#country-name").text(countryList[roundCounter]);*/
 				wrongCounter++;
 				if (wrongCounter == 3)
 				{
