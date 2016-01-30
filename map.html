@@ -33,7 +33,7 @@ var chancesLeft = 3;
 var restart = false;  
 $("#prompt-div").hide();
 function mainGame() {
-	alert("You have started the game"); 
+	$("#country-box").append("<h1 id=\"country-name\"></h1>"); 
 	$("#country-name").text(countryList[roundCounter]);
 	$("#world-map").on("click", function(event) {
         	console.log("we hear you");
@@ -51,12 +51,8 @@ function mainGame() {
 }
 $("#start-button").on("click", function() {
 	console.log("You clicked the start button");
-	if (restart == true) {location.reload();}
-	restart = true; 
-	//$("#prompt-div").show();
-	$("#country-box").append("<h1 id=\"country-name\"></h1>");
 	roundCounter = 0;
-	mainGame();
+	mainGame(); 
 })
 function displayCountry() {
  $("#country-name").text(countryList[roundCounter]);
@@ -64,15 +60,20 @@ function displayCountry() {
 function lose()
 {
 	$("#popup").empty()
-		.append("<h1 id=\"correct\">Sucks to be you!</h1>");
-	$("#country-box").empty();
+		.append("<h1 id=\"correct\">Sucks to be you!</h1>")
+		.click(function() {
+			$("#country-name").empty();
+			location.reload();
+		});
 }
 function win()
 {
 	$("#popup").empty()
-               .append("<h1 id=\"correct\">Congratulations! You're really smart!</h1>");
-	$("#country-box").empty();
-	
+               .append("<h1 id=\"correct\">You win!</h1>")
+	       .click( function() {
+			$("#country-name").empty();
+			location.reload();
+		});	
 }
 function convertToLat(x)
 {
@@ -129,18 +130,16 @@ function getLocation(x,y, counter)
 		dataType: "json",
 		success: function(parsed_json) {
 			console.log(parsed_json.results[0].components.country);
-			//alert(parsed_json.results[0].components.country);
-			//answer = parsed_json.results[0].components.country;
 			var selection = parsed_json.results[0].components.country;
 			console.log(counter + ", the correct response was " + countryList[counter]); 
 			if (selection == countryList[counter])
 			{
 				$("#popup").empty(); 
 				console.log("you were right");
-				$("#popup").append("<h1 id=\"correct\">CORRECT</h1><br><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
+				$("#popup").append("<h1 id=\"correct\">CORRECT</h1><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
 				$("#overlay-div").slideToggle();
 				$("#container").slideToggle();
-				$("#popup").css("background","green")
+				$("#popup").css("background","#09BD09")
 					.slideToggle()
 					.click(function() {
 						console.log("We are stuck in here");
@@ -149,7 +148,6 @@ function getLocation(x,y, counter)
 						$("#overlay-div").slideToggle();
 						 $("#country-name").text(countryList[roundCounter]);
 					});
-				//$("#country-name").text(countryList[roundCounter]);
 				console.log("The round counter is currently " + roundCounter);
 				if (roundCounter == countryList.length)
 				{
@@ -162,9 +160,9 @@ function getLocation(x,y, counter)
 				$("#country-name").empty();
 				wrongCounter++;
 				chancesLeft--;
-				$("#popup").append("<h1 id=\"correct\">INCORRECT</h1><br><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
-				$("#overlay-div").show();
-                                $("#container").show();
+				$("#popup").append("<h1 id=\"correct\">INCORRECT</h1><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
+				$("#overlay-div").slideToggle();
+                                $("#container").slideToggle();
                                 $("#popup").css("background","red")
                                         .show()
                                         .click(function() {
@@ -173,9 +171,6 @@ function getLocation(x,y, counter)
                                                 $("#overlay-div").slideToggle();
 						 $("#country-name").text(countryList[roundCounter]);
                                         });
-				 //$("#country-name").text(countryList[roundCounter]);
-				//$("#country-name").text(countryList[roundCounter]);
-				//wrongCounter++;
 				if (wrongCounter == 3)
 				{
 					lose();

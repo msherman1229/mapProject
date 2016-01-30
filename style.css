@@ -79,15 +79,16 @@ z-index: 15;
 position: relative;
 background: white;
 opacity: .8;
-height: 30%;
-width: 50%;
+height: 125px;
+width: 250px;
 margin: 5% auto;
 border-radius: 20px;
 color: white; 
 font-family: "Helvetica Nueue";
 text-align: center; 
+padding: 5px;
 }
 #correct {
-font-size: 30px;
+font-size: 37px;
 }
 
