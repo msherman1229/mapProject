@@ -83,4 +83,11 @@ height: 30%;
 width: 50%;
 margin: 5% auto;
 border-radius: 20px;
+color: white; 
+font-family: "Helvetica Nueue";
+text-align: center; 
 }
+#correct {
+font-size: 30px;
+}
+

@@ -29,6 +29,7 @@
 var countryList = ["United States of America","Australia","Canada","United States of America", "Australia", "Canada", "United States of America", "Australia", "Canada"];
 var wrongCounter = 0;
 var roundCounter = 0; 
+var chancesLeft = 3; 
 $("#prompt-div").hide();
 function mainGame() {
 	alert("You have started the game"); 
@@ -44,7 +45,7 @@ function mainGame() {
         	var longitude = convertToLong(event.pageY - offset.top);
         	getLocation(lat,longitude, roundCounter);
 		roundCounter++;
-		$("#country-name").text(countryList[roundCounter]);
+		//$("#country-name").text(countryList[roundCounter]);
 		$("#popup").off("click");
 	})
 }
@@ -125,18 +126,20 @@ function getLocation(x,y, counter)
 			console.log(counter + ", the correct response was " + countryList[counter]); 
 			if (selection == countryList[counter])
 			{
+				$("#popup").empty(); 
 				console.log("you were right");
-				$("#overlay-div").show();
-				$("#container").show();
+				$("#popup").append("<h1 id=\"correct\">CORRECT</h1><br><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
+				$("#overlay-div").slideToggle();
+				$("#container").slideToggle();
 				$("#popup").css("background","green")
-					.show()
+					.slideToggle()
 					.click(function() {
 						console.log("We are stuck in here");
 						$("#popup").slideToggle();
 						$("#container").slideToggle();
 						$("#overlay-div").slideToggle();
 					});
-				//$("#country-name").text(countryList[roundCounter]);*/
+				//$("#country-name").text(countryList[roundCounter]);
 				if (roundCounter == countryList.length)
 				{
 					win();
@@ -144,7 +147,11 @@ function getLocation(x,y, counter)
 			}
 			else 
 			{
-				/*$("#overlay-div").show();
+				wrongCounter++;
+				chancesLeft--;
+				$("#popup").empty();
+				$("#popup").append("<h1 id=\"correct\">INCORRECT</h1><br><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
+				$("#overlay-div").show();
                                 $("#container").show();
                                 $("#popup").css("background","red")
                                         .show()
@@ -153,8 +160,8 @@ function getLocation(x,y, counter)
                                                 $("#container").slideToggle();
                                                 $("#overlay-div").slideToggle();
                                         });
-				//$("#country-name").text(countryList[roundCounter]);*/
-				wrongCounter++;
+				//$("#country-name").text(countryList[roundCounter]);
+				//wrongCounter++;
 				if (wrongCounter == 3)
 				{
 					lose();
