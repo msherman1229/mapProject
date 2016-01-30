@@ -26,7 +26,7 @@
 <img id="world-map" src="http://www.legallandconverter.com/images/worldthumb.jpg"/>
 </div>
 <script>
-var countryList = ["United States of America","Australia","Canada","United States of America", "Australia", "Canada", "United States of America", "Australia", "Canada"];
+var countryList = ["United States of America","Australia","China","Brazil","India","Russian Federation","Saudi Arabia","Germany","Iran","Egypt","Mexico","Turkey","Argentina"];
 var wrongCounter = 0;
 var roundCounter = 0; 
 var chancesLeft = 3; 
@@ -60,13 +60,16 @@ function displayCountry() {
 }
 function lose()
 {
-	alert("Better luck next time");
+	$("#popup").empty()
+		.append("<h1 id=\"correct\">Sucks to be you!</h1>");
 	$("#country-box").empty();
 }
 function win()
 {
-	alert("Wow, you're like really smart");
+	$("#popup").empty()
+               .append("<h1 id=\"correct\">Congratulations! You're really smart!</h1>");
 	$("#country-box").empty();
+	
 }
 function convertToLat(x)
 {
@@ -144,6 +147,7 @@ function getLocation(x,y, counter)
 						 $("#country-name").text(countryList[roundCounter]);
 					});
 				//$("#country-name").text(countryList[roundCounter]);
+				console.log("The round counter is currently " + roundCounter);
 				if (roundCounter == countryList.length)
 				{
 					win();
@@ -151,6 +155,7 @@ function getLocation(x,y, counter)
 			}
 			else 
 			{
+				$("#popup").empty();
 				$("#country-name").empty();
 				wrongCounter++;
 				chancesLeft--;
