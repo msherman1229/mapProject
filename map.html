@@ -29,7 +29,8 @@
 var countryList = ["United States of America","Australia","China","Brazil","India","Russian Federation","Saudi Arabia","Germany","Iran","Egypt","Mexico","Turkey","Argentina"];
 var wrongCounter = 0;
 var roundCounter = 0; 
-var chancesLeft = 3; 
+var chancesLeft = 3;
+var restart = false;  
 $("#prompt-div").hide();
 function mainGame() {
 	alert("You have started the game"); 
@@ -50,6 +51,8 @@ function mainGame() {
 }
 $("#start-button").on("click", function() {
 	console.log("You clicked the start button");
+	if (restart == true) {location.reload();}
+	restart = true; 
 	//$("#prompt-div").show();
 	$("#country-box").append("<h1 id=\"country-name\"></h1>");
 	roundCounter = 0;
