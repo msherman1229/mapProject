@@ -45,7 +45,6 @@ function mainGame() {
         	var longitude = convertToLong(event.pageY - offset.top);
         	getLocation(lat,longitude, roundCounter);
 		roundCounter++;
-		//$("#country-name").text(countryList[roundCounter]);
 		$("#popup").off("click");
 	})
 }
@@ -56,6 +55,9 @@ $("#start-button").on("click", function() {
 	roundCounter = 0;
 	mainGame();
 })
+function displayCountry() {
+ $("#country-name").text(countryList[roundCounter]);
+}
 function lose()
 {
 	alert("Better luck next time");
@@ -114,6 +116,7 @@ function convertToLong(y)
 }
 function getLocation(x,y, counter)
 {
+	$("#country-name").empty();
 	var myUrl = "http://api.opencagedata.com/geocode/v1/json?q=" + y +",+" + x + "&key=7e94b745a749cb44413754445f608f4a";
 	$.ajax({
 		url: myUrl, 
@@ -138,6 +141,7 @@ function getLocation(x,y, counter)
 						$("#popup").slideToggle();
 						$("#container").slideToggle();
 						$("#overlay-div").slideToggle();
+						 $("#country-name").text(countryList[roundCounter]);
 					});
 				//$("#country-name").text(countryList[roundCounter]);
 				if (roundCounter == countryList.length)
@@ -147,9 +151,9 @@ function getLocation(x,y, counter)
 			}
 			else 
 			{
+				$("#country-name").empty();
 				wrongCounter++;
 				chancesLeft--;
-				$("#popup").empty();
 				$("#popup").append("<h1 id=\"correct\">INCORRECT</h1><br><p id=\"status\">Current Round: " + roundCounter + " Chances Left: " + chancesLeft + "</p>");
 				$("#overlay-div").show();
                                 $("#container").show();
@@ -159,7 +163,9 @@ function getLocation(x,y, counter)
                                                 $("#popup").slideToggle();
                                                 $("#container").slideToggle();
                                                 $("#overlay-div").slideToggle();
+						 $("#country-name").text(countryList[roundCounter]);
                                         });
+				 //$("#country-name").text(countryList[roundCounter]);
 				//$("#country-name").text(countryList[roundCounter]);
 				//wrongCounter++;
 				if (wrongCounter == 3)
